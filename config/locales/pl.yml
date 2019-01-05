@@ -29,6 +29,12 @@ pl:
     models:
       article: Artykuł
     attributes:
+      title:
+        blank: nie może być pusty
+      text:
+        blank: nie może być pusty
       article:
         title: Tytuł artykułu
         text: Tekst artykułu
+
+
