@@ -21,8 +21,9 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
 
+    @article = Article.find(params[:id])
+    @comment = @article.comments.new
   end
 
   def edit 
