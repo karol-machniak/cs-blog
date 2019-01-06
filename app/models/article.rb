@@ -8,6 +8,7 @@ class Article < ApplicationRecord
   validates :title, length: { minimum: 5, maximum: 40 }
   validates :title, uniqueness: true, if: :title_changed?
   validate :custom_validation, if: :text
+  validates :terms_of_service, acceptance: :true
 
   def custom_validation
     if text.index(title)
