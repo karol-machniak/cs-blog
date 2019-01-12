@@ -5,12 +5,12 @@ class Ability
     user ||= User.new # guest user (not logged in)
     can :read, Article
     can :read, Comment
+    can :read, Picture
     can :create, Comment
 
-    if user.new_record? # we are not logged in
-      can :read, Article
-      can :read, Comment
-    elsif user.role == 'admin'
+    return if user == nil
+
+    if user.role == 'admin'
       can :manage, :all
     elsif user.role == 'editor'
       can :manage, Article
@@ -18,6 +18,7 @@ class Ability
     else
       can :manage, Article, user_id: user.id
       can :manage, Comment, article: { user_id: user.id }
+
     end
   end
 end
