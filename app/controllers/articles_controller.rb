@@ -1,4 +1,7 @@
 class ArticlesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
+
   def new
     @article = Article.new
     render #opcjonalne, jeśli widok nie ma nazwy
@@ -6,6 +9,8 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    @article.user = current_user
+    authorize! :create, @article
     if @article.save
       flash[:success] = t('articles.create.success')
       redirect_to article_path(@article.id) #'/articles/#{articles}'
@@ -15,7 +20,8 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.all
+    @authorize
+    @articles = Article.all.accessible_by(current_ability, :index)
     render
 
   end
@@ -28,11 +34,13 @@ class ArticlesController < ApplicationController
 
   def edit 
     @article = Article.find(params[:id])
+    authorize! :edit, @article
 
   end
   
   def update 
     @article = Article.find(params[:id])
+    authorize! :update, @article
     if @article.update(article_params)
       redirect_to article_path(@article.id)
     else
@@ -43,6 +51,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     article = Article.find(params[:id])
+    authorize! :destroy, article
     article.destroy
     redirect_to articles_path
   end
