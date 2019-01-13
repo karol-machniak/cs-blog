@@ -15,10 +15,11 @@ class Ability
     elsif user.role == 'editor'
       can :manage, Article
       can :manage, Comment
+      can :manage, Picture
     else
       can :manage, Article, user_id: user.id
       can :manage, Comment, article: { user_id: user.id }
-
+      can :manage, Picture, article: { user_id: user.id }
     end
   end
 end

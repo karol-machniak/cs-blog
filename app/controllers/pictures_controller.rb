@@ -1,19 +1,22 @@
 class PicturesController < ApplicationController
   def index
     @article = Article.find(params[:article_id])
-    authorize! = @article.pictures.accessible_by(current_ability, :index)
+    authorize! :index, @article 
+    @pictures = @article.pictures.accessible_by(current_ability, :index)
   end
 
   def new
     @article = Article.find(params[:article_id])
-    @pictures = @article.pictures.new
+    @picture = @article.pictures.new
     authorize! :new, @picture
   end
 
   def create
     @article = Article.find(params[:article_id])
-    @pictures = @article.pictures.new(picture_params)
+    @picture = @article.pictures.new(picture_params)
     authorize! :create, @picture
+    @picture.save!
+    redirect_to article_pictures_path(@article)
   end
 
   def update
@@ -29,6 +32,7 @@ class PicturesController < ApplicationController
 
   def picture_params
     params.require(:picture).permit(:title, :descripion, :image)
+  end
 
 
 end
