@@ -5,4 +5,5 @@ class Picture < ApplicationRecord
 
   validates :image, presence: true
 
+  validates :image, :title, :description, presence: true
 end

@@ -15,23 +15,55 @@ class PicturesController < ApplicationController
     @article = Article.find(params[:article_id])
     @picture = @article.pictures.new(picture_params)
     authorize! :create, @picture
-    @picture.save!
-    redirect_to article_pictures_path(@article)
+    
+    if @picture.save
+      redirect_to article_pictures_path(@article.id)
+    else
+      flash.now[:error] = t('pictures.create.error', default: 'Obrazek nie mógł zostać zapisany')
+      render 'new'
+    end
+
   end
 
   def update
+    @article = Article.find(params[:article_id])
+    @picture = @article.pictures.find(params[:id])
+    authorize! :update, @picture
+
+    if @picture.update(picture_params)
+      redirect_to article_picture_path(@article, @picture)
+    else
+      flash.now[:error] = t('pictures.update.error', default: "Nie można zapisać obrazka")
+      render 'edit'
+    end
+
+  end
+
+  def edit
+    @article = Article.find(params[:article_id])
+    @picture = @article.pictures.find(params[:id])
+    authorize! :edit, @picture
   end
 
   def show
+    @article = Article.find(params[:article_id])
+    @picture = @article.pictures.find(params[:id])
+    authorize! :show, @picture
   end
 
+
   def destroy
+    @article = Article.find(params[:article_id])
+    @picture = @article.pictures.find(params[:id])
+    authorize! :destroy, @picture
+    @picture.destroy
+    redirect_to article_pictures_path(@article)
   end
 
   private
 
   def picture_params
-    params.require(:picture).permit(:title, :descripion, :image)
+    params.require(:picture).permit(:title, :description, :image)
   end
 
 

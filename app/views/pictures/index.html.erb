@@ -3,5 +3,7 @@
 
 
 <% @pictures.each do |picture| %>
+  <%= link_to article_picture_path(@article, picture) do %>
   <%= image_tag picture.image.thumb.url, alt: "#{picture.title}: #{picture.description}" %>
+  <% end %>
 <% end %>
