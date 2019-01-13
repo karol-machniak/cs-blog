@@ -16,6 +16,7 @@ class ArticlesController < ApplicationController
       redirect_to article_path(@article.id) #'/articles/#{articles}'
     else
       flash.now[:error] = t('article.create.error', problems: @article.errors.full_messages.to_sentence)
+      render 'new'
     end
   end
 
