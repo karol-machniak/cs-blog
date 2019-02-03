@@ -5,9 +5,12 @@
       = link_to t('nav.articles', default: 'Artykuly'), articles_path, class: 'nav-link'
     %li.nav-item
       = link_to t('nav.new_article', default: 'Nowy artykul'), new_article_path, class: 'nav-link'
-  - if user_signed_in?
-    Witaj, #{current_user.email}!
-    \#{link_to "Wyloguj", destroy_user_session_path, method: :delete, class: 'btn btn-sm btn-info ml-2'}
-  - else
-    Witaj!
-    \#{link_to 'Zaloguj sie', new_user_session_path, class: 'btn btn-sm btn-info ml-2'}
+  %div.mr-3#js-weather
+    &nbsp;
+  %div
+    - if user_signed_in?
+      Witaj, #{current_user.email}!
+      \#{link_to "Wyloguj", destroy_user_session_path, method: :delete, class: 'btn btn-sm btn-info ml-2'}
+    - else
+      Witaj!
+      \#{link_to 'Zaloguj sie', new_user_session_path, class: 'btn btn-sm btn-info ml-2'}
