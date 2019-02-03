@@ -1,0 +1,18 @@
+%h1= @article.title
+- if @article.user
+  %h3
+    = t('articles.show.author', defaut: 'Autor')
+    \: #{@article.user.email}
+= link_to t('articles.show.gallery', default: 'Galeria'), article_pictures_path(@article)
+= link_to t('articles.show.new', default: 'Dodaj zdjęcia '), new_article_picture_path(@article)
+%p
+  = @article.text
+= link_to t('articles.show.index_link'), articles_path
+= simple_form_for @comment, url: article_comments_path(@article.id) do |f|
+  = f.input :commenter
+  = f.input :body
+  = f.button :submit
+- @article.comments.reject(&:new_record?).each do |comment|
+  %div
+    %strong>= comment.commenter
+    \: #{comment.body}

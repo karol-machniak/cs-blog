@@ -1,0 +1,7 @@
+.flash
+  - flash.each do |k, v|
+    .alert{class: "alert-#{bootstrap_flash_color(k)}"}
+      %strong
+        = t "flash.#{k}"
+        \:
+      = v
