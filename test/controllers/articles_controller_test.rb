@@ -30,14 +30,6 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     
 
   end
-  
-  test 'POST #create when not signed in' do
-    post articles_path, params: {
-      article: { title: 'test title', text: 'textttexttext',
-                 terms_of_service: '1' }
-    }
-    assert_redirected_to new_user_session_path
-  end
 
 
   # test "the truth" do
