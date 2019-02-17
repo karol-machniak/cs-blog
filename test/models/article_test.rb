@@ -11,7 +11,7 @@ class ArticleTest < ActiveSupport::TestCase
     
     assert_predicate @article, :valid?
 
-    assert_equal 'This is a mess!', article.text
+    assert_equal 'This is a mess!', @article.text
   end
 
   # TODO: przetestowanie innych walidacji, bold_markdown, etc.
