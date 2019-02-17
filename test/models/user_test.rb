@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   should validate_inclusion_of(:role) \
-    .in_array(['user, 'admin', 'editor'])
+    .in_array(['user', 'admin', 'editor'])
 
   # Powyższe zastępuje:  
   
