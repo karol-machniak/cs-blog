@@ -20,7 +20,7 @@ class UserTest < ActiveSupport::TestCase
   #  end
 
   test 'cannot be crated when emial exists' do
-    user = crate :user, email: 'admin@codesensei.pl'
+    user = create :user, email: 'admin@codesensei.pl'
     user2 = build :user, email: 'admin@codesensei.pl'
     assert_predicate user2, :invalid?
   end
