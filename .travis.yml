@@ -2,6 +2,6 @@ language: ruby
 services:
   - postgresql
 before_install:
-  - cp confg/database.yml.travis config/database.yml
+  - cp config/database.yml.travis config/database.yml
 before_script:
   - bin/rails db:create db:schema:load
